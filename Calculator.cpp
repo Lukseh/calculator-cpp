@@ -2,8 +2,19 @@
 #include <print>
 #include <string>
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
+
+bool isSecondNeeded(char operant) {
+    if (operant == '~') {
+        return false;
+    }
+    if (operant == '^') {
+        return false;
+    }
+    return true;
+}
 
 int inputToInt() {
     string Input;
@@ -26,7 +37,7 @@ int inputToInt() {
 int inputOperant() {
     string Input;
     getline(cin, Input);
-    if (Input.size() == 1 && (Input[0] == '+' || Input[0] == '-' || Input[0] == '*' || Input[0] == '/')) {
+    if (Input.size() == 1 && (Input[0] == '+' || Input[0] == '-' || Input[0] == '*' || Input[0] == '/' || Input[0] == '~' || Input[0] == '^')) {
         return Input[0];
     }
     else {
@@ -48,6 +59,8 @@ float operationRunner(int first, int second, int operant) {
             exit(3);
         }
         return (float)first / (float)second;
+    case '~': return sqrt(first);
+    case '^': return first * first;
     default:
         cerr << "Error: unsupported operator" << endl;
         system("pause");
@@ -58,11 +71,18 @@ float operationRunner(int first, int second, int operant) {
 int main() {
     println("Please enter first number.");
     int first = inputToInt();
-    println("Please enter second number.");
-    int second = inputToInt();
     println("Please enter operation sign.");
     int operant = inputOperant();
-    float result = operationRunner(first, second, operant);
+    float result = 0;
+    bool useSecond = isSecondNeeded(operant);
+        if (useSecond) {
+            println("Please enter second number.");
+            int second = inputToInt();
+            result = operationRunner(first, second, operant);
+        }
+        else {
+            result = operationRunner(first, 0 ,operant);
+        }
     println("Result of operation is: {}", result);
     system("pause");
     return 0;
