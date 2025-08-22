@@ -8,4 +8,4 @@ project(Calculator
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(calculator calculator.cpp)
+add_executable(calculator Calculator.cpp)
