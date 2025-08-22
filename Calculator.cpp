@@ -6,6 +6,12 @@
 
 using namespace std;
 
+void pauseWin() {
+    #ifdef _WIN32
+        pauseWin();
+    #endif
+}
+
 bool isSecondNeeded(char operant) {
     if (operant == '~') {
         return false;
@@ -24,12 +30,12 @@ int inputToInt() {
     }
     catch (const invalid_argument&) {
         cerr << "Error: invalid number" << endl;
-        system("pause");
+        pauseWin();
         exit(1);
     }
     catch (const out_of_range&) {
         cerr << "Error: number out of range" << endl;
-        system("pause");
+        pauseWin();
         exit(1);
     }
 }
@@ -42,7 +48,7 @@ int inputOperant() {
     }
     else {
         cerr << "Error: invalid operator" << endl;
-        system("pause");
+        pauseWin();
         exit(2);
     }
 }
@@ -55,7 +61,7 @@ float operationRunner(int first, int second, int operant) {
     case '/':
         if (second == 0) {
             cerr << "Error: cannot divide by zero" << endl;
-            system("pause");
+            pauseWin();
             exit(3);
         }
         return (float)first / (float)second;
@@ -63,7 +69,7 @@ float operationRunner(int first, int second, int operant) {
     case '^': return first * first;
     default:
         cerr << "Error: unsupported operator" << endl;
-        system("pause");
+        pauseWin();
         exit(4);
     }
 }
@@ -84,6 +90,6 @@ int main() {
             result = operationRunner(first, 0 ,operant);
         }
     println("Result of operation is: {}", result);
-    system("pause");
+    pauseWin();
     return 0;
 }
